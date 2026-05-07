@@ -11,8 +11,9 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      transition: opacity 0.5s ease;
 
-      /* premium animated background */
+      /* animated background */
       background: linear-gradient(-45deg, #0f172a, #1e3a8a, #0ea5e9, #111827);
       background-size: 400% 400%;
       animation: gradientMove 12s ease infinite;
@@ -22,6 +23,18 @@
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
+    }
+
+    /* fade-in animation */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     /* glass card */
@@ -39,6 +52,9 @@
       box-shadow: 0 20px 60px rgba(0,0,0,0.3);
 
       color: white;
+
+      /* apply fade-in */
+      animation: fadeInUp 0.9s ease-out;
     }
 
     .box h2 {
@@ -53,73 +69,15 @@
       opacity: 0.8;
     }
 
-    /* input {
-      width: 100%;
-      padding: 12px;
-      margin-top: 20px;
-
-      border-radius: 10px;
-      border: 1px solid rgba(255,255,255,0.2);
-      outline: none;
-
-      background: rgba(255,255,255,0.1);
-      color: white;
-    } */
-
-    input::placeholder {
-      color: rgba(255,255,255,0.6);
-    }
-
-    input:focus {
-      border: 1px solid #38bdf8;
-      box-shadow: 0 0 10px rgba(56,189,248,0.4);
-    }
-
-    /* button {
-      margin-top: 15px;
-      width: 100%;
-      padding: 12px;
-
-      border: none;
-      border-radius: 10px;
-
-      background: white;
-      color: #111827;
-      font-weight: bold;
-      cursor: pointer;
-
-      transition: 0.2s;
-    } */
-
-    /* button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    } */
-
-    input, button {
-      width: 100%;
-      box-sizing: border-box;
-      border-radius: 10px;
-    }
-
-    /* INPUT */
-    input {
-      padding: 12px;
-      margin-top: 20px;
-
-      border: 1px solid rgba(255,255,255,0.2);
-      outline: none;
-
-      background: rgba(255,255,255,0.1);
-      color: white;
-    }
-
-    /* BUTTON */
+    /* button */
     button {
-      margin-top: 12px;
+      margin-top: 20px;
+      width: 100%;
       padding: 12px;
 
       border: none;
+      border-radius: 10px;
+
       background: white;
       color: #111827;
       font-weight: bold;
@@ -132,13 +90,6 @@
       transform: translateY(-2px);
       box-shadow: 0 12px 25px rgba(0,0,0,0.25);
     }
-
-    #error {
-      margin-top: 10px;
-      font-size: 12px;
-      color: #f87171;
-      height: 16px;
-    }
   </style>
 </head>
 
@@ -148,25 +99,18 @@
   <h2>FIONA TAN</h2>
   <p>IT Operations & System Specialist</p>
 
-  <input type="password" id="passcode" placeholder="Enter password FIONATAN">
-
-  <button onclick="checkPass()">Enter Portfolio</button>
-
-  <p id="error"></p>
+  <button onclick="goToPortfolio()">Enter Portfolio</button>
 </div>
 
 <script>
-function checkPass() {
-  const input = document.getElementById("passcode").value;
-  const correctPassword = "FIONATAN";
+function goToPortfolio() {
+  document.body.style.opacity = "0";
 
-  if (input === correctPassword) {
+  setTimeout(() => {
     window.location.href = "portfolio.html";
-  } else {
-    document.getElementById("error").innerText = "Incorrect password. Try again.";
-  }
+  }, 500);
 }
-</script>
+</script> 
 
 </body>
 </html>
