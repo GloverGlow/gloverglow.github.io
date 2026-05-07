@@ -39,11 +39,12 @@
 <body>
 
 <div class="box">
-  <h2>Enter Access Code</h2>
+  <h2>FIONA TAN</h2>
+  <p>IT Operations & System Specialist</p>
 
-  <input type="password" id="passcode" placeholder="Enter code">
+  <input type="password" id="passcode" placeholder="Enter password FIONATAN">
 
-  <button onclick="checkPass()">Enter</button>
+  <button onclick="checkPass()">Enter Portfolio</button>
 
   <p id="error"></p>
 </div>
@@ -57,7 +58,7 @@ function checkPass() {
   if (input === correctPassword) {
     window.location.href = "portfolio.html";
   } else {
-    document.getElementById("error").innerText = "Incorrect code";
+    document.getElementById("error").innerText = "Incorrect Password";
   }
 }
 </script>
