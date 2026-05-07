@@ -5,14 +5,34 @@
 
   <style>
     body {
+      margin: 0;
       font-family: Arial;
-      max-width: 900px;
-      margin: auto;
-      padding: 40px;
-      background: #fafafa;
-      color: #333;
-      line-height: 1.7;
+      color: white;
+      background: #0b1220; /* solid base */
     }
+
+    .bg-animation {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+
+      background: linear-gradient(-45deg, #0f172a, #1e3a8a, #0ea5e9, #111827);
+      background-size: 400% 400%;
+      animation: gradientMove 12s ease infinite;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 40px;
+    }
+
 
     h1 {
       text-align: center;
@@ -23,26 +43,36 @@
 
     .subtitle {
       text-align: center;
-      color: #666;
       font-weight: bold;
       margin-bottom: 40px;
     }
 
     .about {
-      background: white;
-      padding: 25px;
-      border-radius: 12px;
-      margin-bottom: 30px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    }
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
 
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 14px;
+
+      padding: 20px;
+      margin-bottom: 20px;
+
+      color: rgba(255, 255, 255, 0.85);
+  }
+ 
     .section {
-      background: white;
-      margin-bottom: 18px;
-      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 14px;
+
+      margin-bottom: 15px;
       overflow: hidden;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      transition: all 0.2s ease;
+
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
 
     .section:hover {
@@ -51,57 +81,86 @@
     }
 
     .section-header {
-      padding: 18px;
+      padding: 15px;
       cursor: pointer;
       font-weight: bold;
-      background: #f3f3f3;
-      transition: all 0.2s ease;
-      font-size: 16px;
+
+      background: rgba(255, 255, 255, 0.06);
+      color: white;
+
+      transition: 0.2s;
     }
 
     .section-header:hover {
-      background: linear-gradient(90deg, #f8fafc, #ececec, #f8fafc);
+      background: rgba(255, 255, 255, 0.12);
     }
 
     .section-content {
-      display: none;
-      padding: 20px;
-      animation: fadeIn 0.2s ease;
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 15px;
+      opacity: 0;
+      transition: all 0.25s ease;
+    }
+    
+    .section-content.open {
+      max-height: 2000px; /* Adjust this value as needed */
+      padding: 15px;
+      opacity: 1;
+    }
+
+    .section-content p,
+    .section-content li,
+    .section-content span {
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.6;
+    }
+
+    /* keep spacing clean */
+    .section-content ul {
+      margin-top: 5px;
+      padding-left: 20px;
     }
 
     .project {
       margin-bottom: 25px;
       padding: 20px;
-      background: #f9f9f9;
-      border-radius: 10px;
+      background: #ffffff;   /* pure white */
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
       transition: all 0.2s ease;
+      color: #111827;        /* force black-ish text */
     }
 
     .project:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 18px rgba(0,0,0,0.06);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.12);
     }
 
     .project:last-child {
       margin-bottom: 0;
     }
 
-    .project h3 {
-      margin-top: 0;
-      color: #111827;
+    .project h3,
+    .project p,
+    .project span,
+    .project li,
+    .project ul {
+      color: #111827 !important;
     }
 
+    /* labels inside projects */
     .label {
-      font-weight: bold;
+      font-weight: 700;
+      margin-top: 12px;
       display: block;
-      margin-top: 15px;
-      margin-bottom: 5px;
-      color: #111827;
+      color: #111827 !important;
     }
 
-    ul {
-      margin-top: 5px;
-      padding-left: 20px;
+    /* list readability fix */
+    .project ul {
+      margin-top: 6px;
+      padding-left: 18px;
     }
 
     @keyframes fadeIn {
@@ -119,466 +178,472 @@
 </head>
 
 <body>
+  
+<div class="bg-animation"></div>
 
-<h1>FIONA TAN</h1>
+<div class="container">
 
-<p class="subtitle">
-  IT Operations | Automation | Infrastructure | Security Engineering
-</p>
 
-<div class="about">
-  <h2>About Me</h2>
 
-  <p>
-    IT Operations and Automation Specialist with experience across infrastructure deployment, enterprise migrations, workflow automation, onboarding operations, vendor management, and service delivery optimisation.
+
+  <h1>FIONA TAN</h1>
+
+  <p class="subtitle">
+    IT Operations | Automation | Infrastructure | Security Engineering
   </p>
 
-  <p>
-    I specialise in building scalable IT operational processes across onboarding, ticketing, infrastructure readiness, identity management, and automation workflows while working closely with regional stakeholders, leadership teams, external vendors, and operational support partners.
-  </p>
+  <div class="about">
+    <h2>About Me</h2>
 
-  <p>
-    My experience spans enterprise collaboration platforms, retail and office infrastructure deployment, automation engineering, IT service management, cybersecurity operations support, and cross-regional enablement including onboarding and training new internal hires, vendors, and outsourced support teams.
-  </p>
+    <p>
+      IT Operations and System Specialist with experience across infrastructure deployment, enterprise migrations, workflow automation, onboarding operations, vendor management, and service delivery optimisation.
+    </p>
 
-  <p>
-    I have also supported operational leadership responsibilities including vendor onboarding, third-party management, stakeholder onboarding support, onboarding presentations, and participation in early-stage IT hiring evaluations for expanding regional support operations.
-  </p>
+    <p>
+      I specialise in building scalable IT operational processes across onboarding, ticketing, infrastructure readiness, identity management, and automation workflows while working closely with regional stakeholders, leadership teams, external vendors, and operational support partners.
+    </p>
 
-  <p>
-    Currently expanding my focus into low-code automation platforms and enterprise workflow tooling including OutSystems, Power Automate, Workato, and enterprise orchestration solutions.
-  </p>
+    <p>
+      My experience spans enterprise collaboration platforms, retail and office infrastructure deployment, automation engineering, IT service management, cybersecurity operations support, and cross-regional enablement including onboarding and training new internal hires, vendors, and outsourced support teams.
+    </p>
+
+    <p>
+      I have also supported operational leadership responsibilities including vendor onboarding, third-party management, stakeholder onboarding support, onboarding presentations, and participation in early-stage IT hiring evaluations for expanding regional support operations.
+    </p>
+
+    <p>
+      Currently expanding my focus into low-code automation platforms and enterprise workflow tooling including OutSystems, Power Automate, Workato, and enterprise orchestration solutions.
+    </p>
+  </div>
+
+  <!-- ===================== MIGRATION ===================== -->
+
+  <div class="section">
+    <div class="section-header" onclick="toggle(this)">
+      ▼ Migration Projects
+    </div>
+
+    <div class="section-content">
+
+      <div class="project">
+        <h3>Slack Workspace Migration</h3>
+
+        <span class="label">Overview</span>
+        <p>
+          Assisted in enterprise Slack workspace migration projects ensuring operational continuity, access alignment, and communication readiness during migration cutover activities.
+        </p>
+
+        <span class="label">Responsibilities</span>
+        <ul>
+          <li>User migration coordination across departments and teams</li>
+          <li>Slack access and channel structure validation</li>
+          <li>Permission and workspace readiness verification</li>
+          <li>Migration cutover support and troubleshooting</li>
+        </ul>
+
+        <span class="label">Impact</span>
+        <p>
+          Helped ensure successful collaboration continuity during enterprise workspace transition activities.
+        </p>
+
+        <span class="label">Technologies Used</span>
+        <p>Slack</p>
+      </div>
+
+      <div class="project">
+        <h3>Google Workspace Domain Migration</h3>
+
+        <span class="label">Overview</span>
+        <p>
+          Assisted in migration from Microsoft-hosted environments into Google Workspace supporting collaboration platform and identity transition activities.
+        </p>
+
+        <span class="label">Responsibilities</span>
+        <ul>
+          <li>Email and collaboration migration support</li>
+          <li>User account continuity validation</li>
+          <li>Identity and access transition support</li>
+        </ul>
+
+        <span class="label">Impact</span>
+        <p>
+          Supported successful enterprise migration activities while minimizing operational disruption.
+        </p>
+
+        <span class="label">Technologies Used</span>
+        <p>Google Workspace, Microsoft 365</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================== OFFICE INFRA ===================== -->
+
+  <div class="section">
+    <div class="section-header" onclick="toggle(this)">
+      ▼ Office Infrastructure & Build Projects
+    </div>
+
+    <div class="section-content">
+
+      <div class="project">
+        <h3>Temporary & Permanent Office Relocation IT Setup</h3>
+
+        <span class="label">Overview</span>
+        <p>
+          Coordinated IT infrastructure readiness during temporary and permanent office relocation projects ensuring operational readiness before employee move-in.
+        </p>
+
+        <span class="label">Responsibilities</span>
+        <ul>
+          <li>IT relocation planning and documentation</li>
+          <li>ISP coordination and internet readiness</li>
+          <li>Wi-Fi access point deployment coordination</li>
+          <li>Printer migration and network validation</li>
+          <li>CCTV and structured cabling coordination</li>
+          <li>Meeting room and workstation readiness validation</li>
+        </ul>
+
+        <span class="label">Impact</span>
+        <p>
+          Successfully delivered fully operational office environments with minimal downtime.
+        </p>
+
+        <span class="label">Technologies Used</span>
+        <p>Wi-Fi Infrastructure, CCTV Systems, Printer Networking</p>
+      </div>
+
+      <div class="project">
+        <h3>Luxury Retail Store IT Setup</h3>
+
+        <span class="label">Overview</span>
+        <p>
+          Supported luxury retail store launches from the IT infrastructure perspective alongside external implementation vendors.
+        </p>
+
+        <span class="label">Responsibilities</span>
+        <ul>
+          <li>Biometrics setup coordination</li>
+          <li>CCTV coordination and validation</li>
+          <li>POS and printer operational readiness</li>
+          <li>Vendor coordination and onsite troubleshooting</li>
+        </ul>
+
+        <span class="label">Impact</span>
+        <p>
+          Enabled successful retail store launches with fully operational infrastructure and support systems.
+        </p>
+
+        <span class="label">Technologies Used</span>
+        <p>Retail POS Systems, Biometrics, CCTV</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================== AUTOMATION ===================== -->
+
+  <div class="section">
+    <div class="section-header" onclick="toggle(this)">
+      ▼ Automation & Workflow Engineering
+    </div>
+
+    <div class="section-content">
+
+      <div class="project">
+        <h3>Google Workspace Organizational Automation</h3>
+
+        <span class="label">Overview</span>
+        <p>
+          Designed onboarding automation workflows to streamline Google Workspace user provisioning and organizational assignment processes.
+        </p>
+
+        <span class="label">Responsibilities</span>
+        <ul>
+          <li>Automated Organizational Unit assignments</li>
+          <li>Automated Google Group onboarding workflows</li>
+          <li>Configured onboarding logic for technical and non-technical users</li>
+        </ul>
+
+        <span class="label">Impact</span>
+        <p>
+          Reduced manual onboarding workload while improving provisioning consistency.
+        </p>
+
+        <span class="label">Technologies Used</span>
+        <p>Google Workspace, Foresight, Fanatical</p>
+      </div>
+
+      <div class="project">
+        <h3>Slack Welcome Workflow Automation</h3>
+
+        <span class="label">Overview</span>
+        <p>
+          Created automated Slack onboarding workflows to improve employee onboarding experience.
+        </p>
+
+        <span class="label">Responsibilities</span>
+        <ul>
+          <li>Automated welcome messaging</li>
+          <li>Distributed onboarding guidance and resources</li>
+          <li>Standardized onboarding communication flows</li>
+        </ul>
+
+        <span class="label">Impact</span>
+        <p>
+          Improved onboarding experience while reducing repetitive manual onboarding coordination.
+        </p>
+
+        <span class="label">Technologies Used</span>
+        <p>Slack Workflow Builder</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================== IT SERVICE ===================== -->
+
+  <div class="section">
+    <div class="section-header" onclick="toggle(this)">
+      ▼ IT Service Management & Ticketing
+    </div>
+
+    <div class="section-content">
+
+      <div class="project">
+        <h3>Jira Service Desk Automation</h3>
+
+        <span class="label">Overview</span>
+        <p>
+          Implemented automation workflows in Jira Service Management to improve operational routing and SLA handling.
+        </p>
+
+        <span class="label">Responsibilities</span>
+        <ul>
+          <li>Configured regional ticket routing</li>
+          <li>Implemented SLA follow-up workflows</li>
+          <li>Built automated ticket reminders</li>
+        </ul>
+
+        <span class="label">Impact</span>
+        <p>
+          Improved ticket handling efficiency and support workflow consistency.
+        </p>
+
+        <span class="label">Technologies Used</span>
+        <p>Jira Service Management, Jira Automation</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================== MONITORING ===================== -->
+
+  <div class="section">
+    <div class="section-header" onclick="toggle(this)">
+      ▼ Asset Monitoring & Operational Reliability
+    </div>
+
+    <div class="section-content">
+
+      <div class="project">
+        <h3>Printer Monitoring & Alerting</h3>
+
+        <span class="label">Overview</span>
+        <p>
+          Implemented operational monitoring workflows for enterprise printers with Slack-based alerting.
+        </p>
+
+        <span class="label">Responsibilities</span>
+        <ul>
+          <li>Configured automated printer monitoring alerts</li>
+          <li>Integrated operational notifications into Slack</li>
+          <li>Supported proactive troubleshooting workflows</li>
+        </ul>
+
+        <span class="label">Impact</span>
+        <p>
+          Improved proactive response capabilities for printer incidents and downtime.
+        </p>
+
+        <span class="label">Technologies Used</span>
+        <p>Slack, Printer Monitoring Systems</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================== IAM ===================== -->
+
+  <div class="section">
+    <div class="section-header" onclick="toggle(this)">
+      ▼ Identity & Access Management
+    </div>
+
+    <div class="section-content">
+
+      <div class="project">
+        <h3>Workforce Access Suspension Automation</h3>
+
+        <span class="label">Overview</span>
+        <p>
+          Supported controlled workforce access suspension and offboarding operations using Google Apps Manager.
+        </p>
+
+        <span class="label">Responsibilities</span>
+        <ul>
+          <li>Executed bulk user suspension workflows</li>
+          <li>Managed temporary access restrictions</li>
+          <li>Coordinated suspension timing with HR stakeholders</li>
+        </ul>
+
+        <span class="label">Impact</span>
+        <p>
+          Enabled secure and structured workforce offboarding operations.
+        </p>
+
+        <span class="label">Technologies Used</span>
+        <p>Google Workspace, GAM</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================== SECURITY ===================== -->
+
+  <div class="section">
+    <div class="section-header" onclick="toggle(this)">
+      ▼ Cybersecurity & Security Awareness Operations
+    </div>
+
+    <div class="section-content">
+
+      <div class="project">
+        <h3>Security Awareness Program Management</h3>
+
+        <span class="label">Overview</span>
+        <p>
+          Coordinated enterprise cybersecurity awareness initiatives and phishing simulation campaigns using Wizer.
+        </p>
+
+        <span class="label">Responsibilities</span>
+        <ul>
+          <li>Configured phishing simulation campaigns</li>
+          <li>Tracked cybersecurity training completion</li>
+          <li>Supported organization-wide awareness initiatives</li>
+        </ul>
+
+        <span class="label">Impact</span>
+        <p>
+          Improved visibility and operational coordination for security awareness programs.
+        </p>
+
+        <span class="label">Technologies Used</span>
+        <p>Wizer, Google Workspace, Slack</p>
+      </div>
+
+      <div class="project">
+        <h3>Cybersecurity Training Automation</h3>
+
+        <span class="label">Overview</span>
+        <p>
+          Developed automated workflows to improve cybersecurity training tracking and escalation handling.
+        </p>
+
+        <span class="label">Responsibilities</span>
+        <ul>
+          <li>Built Google Apps Script reminder workflows</li>
+          <li>Implemented Slack notification automation</li>
+          <li>Developed Python-based Slack bots</li>
+        </ul>
+
+        <span class="label">Impact</span>
+        <p>
+          Improved overdue follow-up visibility while reducing manual administrative effort.
+        </p>
+
+        <span class="label">Technologies Used</span>
+        <p>Python, Slack API, Google Apps Script</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================== LEADERSHIP ===================== -->
+
+  <div class="section">
+    <div class="section-header" onclick="toggle(this)">
+      ▼ Leadership, Vendor Management & Enablement
+    </div>
+
+    <div class="section-content">
+
+      <div class="project">
+        <h3>Vendor & Third-Party Operations Management</h3>
+
+        <span class="label">Overview</span>
+        <p>
+          Managed operational support activities across rotating third-party vendors and outsourced IT support resources.
+        </p>
+
+        <span class="label">Responsibilities</span>
+        <ul>
+          <li>Trained vendors on operational systems</li>
+          <li>Managed third-party onboarding readiness</li>
+          <li>Supported vendor selection discussions</li>
+        </ul>
+
+        <span class="label">Impact</span>
+        <p>
+          Improved operational consistency across outsourced support operations.
+        </p>
+
+        <span class="label">Technologies Used</span>
+        <p>Operational Documentation, IT Support Processes</p>
+      </div>
+
+      <div class="project">
+        <h3>Regional IT Enablement & Training</h3>
+
+        <span class="label">Overview</span>
+        <p>
+          Supported onboarding and enablement activities for internal hires and regional support resources.
+        </p>
+
+        <span class="label">Responsibilities</span>
+        <ul>
+          <li>Conducted weekly onboarding presentations</li>
+          <li>Delivered stakeholder onboarding sessions</li>
+          <li>Trained new IT hires and vendors</li>
+        </ul>
+
+        <span class="label">Impact</span>
+        <p>
+          Improved onboarding consistency and support readiness across regional operations.
+        </p>
+
+        <span class="label">Technologies Used</span>
+        <p>Google Workspace, Slack</p>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+  function toggle(el) {
+    const content = el.nextElementSibling;
+    if (!content) return;
+
+    const isOpen = content.classList.contains("open");
+
+    if (isOpen) {
+      content.classList.remove("open");
+    } else {
+      content.classList.add("open");
+    }
+  }
+  </script>
+
 </div>
-
-<!-- ===================== MIGRATION ===================== -->
-
-<div class="section">
-  <div class="section-header" onclick="toggle(this)">
-    ▼ Migration Projects
-  </div>
-
-  <div class="section-content">
-
-    <div class="project">
-      <h3>Slack Workspace Migration</h3>
-
-      <span class="label">Overview</span>
-      <p>
-        Assisted in enterprise Slack workspace migration projects ensuring operational continuity, access alignment, and communication readiness during migration cutover activities.
-      </p>
-
-      <span class="label">Responsibilities</span>
-      <ul>
-        <li>User migration coordination across departments and teams</li>
-        <li>Slack access and channel structure validation</li>
-        <li>Permission and workspace readiness verification</li>
-        <li>Migration cutover support and troubleshooting</li>
-      </ul>
-
-      <span class="label">Impact</span>
-      <p>
-        Helped ensure successful collaboration continuity during enterprise workspace transition activities.
-      </p>
-
-      <span class="label">Technologies Used</span>
-      <p>Slack</p>
-    </div>
-
-    <div class="project">
-      <h3>Google Workspace Domain Migration</h3>
-
-      <span class="label">Overview</span>
-      <p>
-        Assisted in migration from Microsoft-hosted environments into Google Workspace supporting collaboration platform and identity transition activities.
-      </p>
-
-      <span class="label">Responsibilities</span>
-      <ul>
-        <li>Email and collaboration migration support</li>
-        <li>User account continuity validation</li>
-        <li>Identity and access transition support</li>
-      </ul>
-
-      <span class="label">Impact</span>
-      <p>
-        Supported successful enterprise migration activities while minimizing operational disruption.
-      </p>
-
-      <span class="label">Technologies Used</span>
-      <p>Google Workspace, Microsoft 365</p>
-    </div>
-
-  </div>
-</div>
-
-<!-- ===================== OFFICE INFRA ===================== -->
-
-<div class="section">
-  <div class="section-header" onclick="toggle(this)">
-    ▼ Office Infrastructure & Build Projects
-  </div>
-
-  <div class="section-content">
-
-    <div class="project">
-      <h3>Temporary & Permanent Office Relocation IT Setup</h3>
-
-      <span class="label">Overview</span>
-      <p>
-        Coordinated IT infrastructure readiness during temporary and permanent office relocation projects ensuring operational readiness before employee move-in.
-      </p>
-
-      <span class="label">Responsibilities</span>
-      <ul>
-        <li>IT relocation planning and documentation</li>
-        <li>ISP coordination and internet readiness</li>
-        <li>Wi-Fi access point deployment coordination</li>
-        <li>Printer migration and network validation</li>
-        <li>CCTV and structured cabling coordination</li>
-        <li>Meeting room and workstation readiness validation</li>
-      </ul>
-
-      <span class="label">Impact</span>
-      <p>
-        Successfully delivered fully operational office environments with minimal downtime.
-      </p>
-
-      <span class="label">Technologies Used</span>
-      <p>Wi-Fi Infrastructure, CCTV Systems, Printer Networking</p>
-    </div>
-
-    <div class="project">
-      <h3>Luxury Retail Store IT Setup</h3>
-
-      <span class="label">Overview</span>
-      <p>
-        Supported luxury retail store launches from the IT infrastructure perspective alongside external implementation vendors.
-      </p>
-
-      <span class="label">Responsibilities</span>
-      <ul>
-        <li>Biometrics setup coordination</li>
-        <li>CCTV coordination and validation</li>
-        <li>POS and printer operational readiness</li>
-        <li>Vendor coordination and onsite troubleshooting</li>
-      </ul>
-
-      <span class="label">Impact</span>
-      <p>
-        Enabled successful retail store launches with fully operational infrastructure and support systems.
-      </p>
-
-      <span class="label">Technologies Used</span>
-      <p>Retail POS Systems, Biometrics, CCTV</p>
-    </div>
-
-  </div>
-</div>
-
-<!-- ===================== AUTOMATION ===================== -->
-
-<div class="section">
-  <div class="section-header" onclick="toggle(this)">
-    ▼ Automation & Workflow Engineering
-  </div>
-
-  <div class="section-content">
-
-    <div class="project">
-      <h3>Google Workspace Organizational Automation</h3>
-
-      <span class="label">Overview</span>
-      <p>
-        Designed onboarding automation workflows to streamline Google Workspace user provisioning and organizational assignment processes.
-      </p>
-
-      <span class="label">Responsibilities</span>
-      <ul>
-        <li>Automated Organizational Unit assignments</li>
-        <li>Automated Google Group onboarding workflows</li>
-        <li>Configured onboarding logic for technical and non-technical users</li>
-      </ul>
-
-      <span class="label">Impact</span>
-      <p>
-        Reduced manual onboarding workload while improving provisioning consistency.
-      </p>
-
-      <span class="label">Technologies Used</span>
-      <p>Google Workspace, Foresight, Fanatical</p>
-    </div>
-
-    <div class="project">
-      <h3>Slack Welcome Workflow Automation</h3>
-
-      <span class="label">Overview</span>
-      <p>
-        Created automated Slack onboarding workflows to improve employee onboarding experience.
-      </p>
-
-      <span class="label">Responsibilities</span>
-      <ul>
-        <li>Automated welcome messaging</li>
-        <li>Distributed onboarding guidance and resources</li>
-        <li>Standardized onboarding communication flows</li>
-      </ul>
-
-      <span class="label">Impact</span>
-      <p>
-        Improved onboarding experience while reducing repetitive manual onboarding coordination.
-      </p>
-
-      <span class="label">Technologies Used</span>
-      <p>Slack Workflow Builder</p>
-    </div>
-
-  </div>
-</div>
-
-<!-- ===================== IT SERVICE ===================== -->
-
-<div class="section">
-  <div class="section-header" onclick="toggle(this)">
-    ▼ IT Service Management & Ticketing
-  </div>
-
-  <div class="section-content">
-
-    <div class="project">
-      <h3>Jira Service Desk Automation</h3>
-
-      <span class="label">Overview</span>
-      <p>
-        Implemented automation workflows in Jira Service Management to improve operational routing and SLA handling.
-      </p>
-
-      <span class="label">Responsibilities</span>
-      <ul>
-        <li>Configured regional ticket routing</li>
-        <li>Implemented SLA follow-up workflows</li>
-        <li>Built automated ticket reminders</li>
-      </ul>
-
-      <span class="label">Impact</span>
-      <p>
-        Improved ticket handling efficiency and support workflow consistency.
-      </p>
-
-      <span class="label">Technologies Used</span>
-      <p>Jira Service Management, Jira Automation</p>
-    </div>
-
-  </div>
-</div>
-
-<!-- ===================== MONITORING ===================== -->
-
-<div class="section">
-  <div class="section-header" onclick="toggle(this)">
-    ▼ Asset Monitoring & Operational Reliability
-  </div>
-
-  <div class="section-content">
-
-    <div class="project">
-      <h3>Printer Monitoring & Alerting</h3>
-
-      <span class="label">Overview</span>
-      <p>
-        Implemented operational monitoring workflows for enterprise printers with Slack-based alerting.
-      </p>
-
-      <span class="label">Responsibilities</span>
-      <ul>
-        <li>Configured automated printer monitoring alerts</li>
-        <li>Integrated operational notifications into Slack</li>
-        <li>Supported proactive troubleshooting workflows</li>
-      </ul>
-
-      <span class="label">Impact</span>
-      <p>
-        Improved proactive response capabilities for printer incidents and downtime.
-      </p>
-
-      <span class="label">Technologies Used</span>
-      <p>Slack, Printer Monitoring Systems</p>
-    </div>
-
-  </div>
-</div>
-
-<!-- ===================== IAM ===================== -->
-
-<div class="section">
-  <div class="section-header" onclick="toggle(this)">
-    ▼ Identity & Access Management
-  </div>
-
-  <div class="section-content">
-
-    <div class="project">
-      <h3>Workforce Access Suspension Automation</h3>
-
-      <span class="label">Overview</span>
-      <p>
-        Supported controlled workforce access suspension and offboarding operations using Google Apps Manager.
-      </p>
-
-      <span class="label">Responsibilities</span>
-      <ul>
-        <li>Executed bulk user suspension workflows</li>
-        <li>Managed temporary access restrictions</li>
-        <li>Coordinated suspension timing with HR stakeholders</li>
-      </ul>
-
-      <span class="label">Impact</span>
-      <p>
-        Enabled secure and structured workforce offboarding operations.
-      </p>
-
-      <span class="label">Technologies Used</span>
-      <p>Google Workspace, GAM</p>
-    </div>
-
-  </div>
-</div>
-
-<!-- ===================== SECURITY ===================== -->
-
-<div class="section">
-  <div class="section-header" onclick="toggle(this)">
-    ▼ Cybersecurity & Security Awareness Operations
-  </div>
-
-  <div class="section-content">
-
-    <div class="project">
-      <h3>Security Awareness Program Management</h3>
-
-      <span class="label">Overview</span>
-      <p>
-        Coordinated enterprise cybersecurity awareness initiatives and phishing simulation campaigns using Wizer.
-      </p>
-
-      <span class="label">Responsibilities</span>
-      <ul>
-        <li>Configured phishing simulation campaigns</li>
-        <li>Tracked cybersecurity training completion</li>
-        <li>Supported organization-wide awareness initiatives</li>
-      </ul>
-
-      <span class="label">Impact</span>
-      <p>
-        Improved visibility and operational coordination for security awareness programs.
-      </p>
-
-      <span class="label">Technologies Used</span>
-      <p>Wizer, Google Workspace, Slack</p>
-    </div>
-
-    <div class="project">
-      <h3>Cybersecurity Training Automation</h3>
-
-      <span class="label">Overview</span>
-      <p>
-        Developed automated workflows to improve cybersecurity training tracking and escalation handling.
-      </p>
-
-      <span class="label">Responsibilities</span>
-      <ul>
-        <li>Built Google Apps Script reminder workflows</li>
-        <li>Implemented Slack notification automation</li>
-        <li>Developed Python-based Slack bots</li>
-      </ul>
-
-      <span class="label">Impact</span>
-      <p>
-        Improved overdue follow-up visibility while reducing manual administrative effort.
-      </p>
-
-      <span class="label">Technologies Used</span>
-      <p>Python, Slack API, Google Apps Script</p>
-    </div>
-
-  </div>
-</div>
-
-<!-- ===================== LEADERSHIP ===================== -->
-
-<div class="section">
-  <div class="section-header" onclick="toggle(this)">
-    ▼ Leadership, Vendor Management & Enablement
-  </div>
-
-  <div class="section-content">
-
-    <div class="project">
-      <h3>Vendor & Third-Party Operations Management</h3>
-
-      <span class="label">Overview</span>
-      <p>
-        Managed operational support activities across rotating third-party vendors and outsourced IT support resources.
-      </p>
-
-      <span class="label">Responsibilities</span>
-      <ul>
-        <li>Trained vendors on operational systems</li>
-        <li>Managed third-party onboarding readiness</li>
-        <li>Supported vendor selection discussions</li>
-      </ul>
-
-      <span class="label">Impact</span>
-      <p>
-        Improved operational consistency across outsourced support operations.
-      </p>
-
-      <span class="label">Technologies Used</span>
-      <p>Operational Documentation, IT Support Processes</p>
-    </div>
-
-    <div class="project">
-      <h3>Regional IT Enablement & Training</h3>
-
-      <span class="label">Overview</span>
-      <p>
-        Supported onboarding and enablement activities for internal hires and regional support resources.
-      </p>
-
-      <span class="label">Responsibilities</span>
-      <ul>
-        <li>Conducted weekly onboarding presentations</li>
-        <li>Delivered stakeholder onboarding sessions</li>
-        <li>Trained new IT hires and vendors</li>
-      </ul>
-
-      <span class="label">Impact</span>
-      <p>
-        Improved onboarding consistency and support readiness across regional operations.
-      </p>
-
-      <span class="label">Technologies Used</span>
-      <p>Google Workspace, Slack</p>
-    </div>
-
-  </div>
-</div>
-
-<script>
-function toggle(el) {
-  const content = el.nextElementSibling;
-
-  if (!content) return;
-
-  const isOpen = content.style.display === "block";
-
-  content.style.display = isOpen ? "none" : "block";
-
-  el.innerHTML = el.innerHTML.replace(
-    isOpen ? "▲" : "▼",
-    isOpen ? "▼" : "▲"
-  );
-}
-</script>
-
 </body>
 </html>
