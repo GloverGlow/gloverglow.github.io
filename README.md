@@ -1,6 +1,7 @@
 **IT Operations Portfolio Website**
 
 **Overview**
+
 This is a personal portfolio website showcasing my experience in IT Operations, Automation, Infrastructure, Cybersecurity, Identity & Access Management, and Enterprise IT Service Delivery.
 
 The site is designed as an interactive, card-based portfolio that groups real-world IT projects across different operational domains.
