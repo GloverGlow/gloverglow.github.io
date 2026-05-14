@@ -1,0 +1,141 @@
+body {
+    margin: 0;
+    font-family: Arial;
+    color: white;
+    background: #0b1220;
+}
+
+.bg-animation {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(-45deg, #0f172a, #1e3a8a, #0ea5e9, #111827);
+    background-size: 400% 400%;
+    animation: gradientMove 12s ease infinite;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 5px;
+    font-size: 42px;
+    letter-spacing: -1px;
+}
+
+.subtitle {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+.about {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 30px;
+    color: rgba(255,255,255,0.85);
+}
+
+/* ================= GRID ================= */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.card {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 14px;
+    padding: 25px;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-3px); /* Lifts and scales the card */
+    background: rgba(255,255,255,0.15);
+}
+
+/* ================= MODAL ================= */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.1);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.modal-content {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #111827;
+    width: 85%;
+    max-width: 900px;
+    max-height: 85vh;
+    overflow-y: auto;
+    border-radius: 12px;
+    padding: 25px;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+h2, h3 {
+    margin-top: 15px;
+}
+
+.label {
+    font-weight: 700;
+    margin-top: 10px;
+    display: block;
+}
+
+ul {
+    margin-top: 5px;
+    padding-left: 18px;
+}
+
+/*Project Cards*/
+.section-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px; /* creates the visible space */
+}
+
+.project {
+    background: #0f172a;
+    border: 1px solid #333;
+    border-radius: 20px;
+
+    padding: 28px;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.15);
+    color: #eaeaea;
+}
+    
+
