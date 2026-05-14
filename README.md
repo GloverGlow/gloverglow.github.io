@@ -14,7 +14,7 @@ This is a static website.
 No installation or setup is required.
 
 **Live Site**
-👉 https://portfolio.wandboo.com/
+ https://portfolio.wandboo.com/
 
 ---
 
